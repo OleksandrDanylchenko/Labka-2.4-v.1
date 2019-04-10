@@ -189,8 +189,8 @@ void operator >>(std::istream& ifs, Polynom& p) {
 }
 
 void operator <<(std::ostream& ofs, const Polynom& p) {
-	ofs << std::endl;
 	if (&ofs == &std::cout) {
+		ofs << std::endl;
 		for (auto i = p.begin(); i != p.end(); ++i) {
 			Monom& tempM = *i;
 			if (abs(tempM.coef - 0.) < eps) // coefficient equal to 0
