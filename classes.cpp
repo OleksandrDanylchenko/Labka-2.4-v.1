@@ -9,7 +9,7 @@ Polynom::Polynom(const Polynom& p) {
 	for (auto i = p.begin(); i != p.end(); ++i)
 		push(*i);
 }
-// TODO CONVERT transfer
+
 Polynom::Polynom(Polynom&& p) noexcept {
 	first = p.first;
 	p.first = nullptr;
@@ -24,8 +24,6 @@ Polynom& Polynom::operator=(const Polynom& p) {
 Polynom& Polynom::operator=(Polynom&& p) noexcept {
 	dispose();
 	if (this != &p) {
-		//for (auto i = p.begin(); i != p.end(); ++i)
-		//	push(*i);
 		first = p.first;
 		p.first = nullptr;
 	}
