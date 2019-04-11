@@ -44,8 +44,8 @@ public:
 	Iter end() const;
 };
 
-void operator >>(std::istream& s, Polynom& p);
-void operator <<(std::ostream& s, const Polynom& p);
+void operator >>(std::istream&, Polynom&);
+void operator <<(std::ostream&, const Polynom&);
 
-void close(std::istream& s);
-void close(std::ostream& s);
+void close(std::istream&);
+void close(std::ostream&);
