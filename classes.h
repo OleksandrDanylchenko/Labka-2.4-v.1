@@ -12,13 +12,13 @@ private:
 		Monom data;
 		LE* next;
 	};
-	LE* first;
+	LE* first{ nullptr };
 public:
 	Polynom() = default;
 	Polynom(const Polynom&);
-	Polynom(Polynom&&);
+	Polynom(Polynom&&) noexcept;
 	Polynom& operator = (const Polynom&);
-	Polynom& operator = (Polynom&&);
+	Polynom& operator = (Polynom&&) noexcept;
 	Polynom operator + (const Polynom&) const;
 	Polynom operator - (const Polynom&) const;
 	Polynom& operator += (const Polynom&);
@@ -37,7 +37,6 @@ public:
 		Iter& operator ++ (int); // i++
 		bool operator == (const Iter&);
 		bool operator != (const Iter&);
-		bool isNextEmpty();
 	private:
 		LE* current{ nullptr };
 	};
