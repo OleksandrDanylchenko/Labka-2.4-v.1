@@ -114,3 +114,5 @@ std::ostream& setOStream(std::ofstream& f) {
 			return (std::ostream&)f;
 		}
 }
+
+// root folder D:/Studying/Programming/LABS/Labka 2-4 v.1/Labka 2-4 v.1/
