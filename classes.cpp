@@ -16,6 +16,7 @@ Polynom::Polynom(Polynom&& p) noexcept {
 }
 
 Polynom& Polynom::operator=(const Polynom& p) {
+	dispose();
 	for (auto i = p.begin(); i != p.end(); ++i)
 		push(*i);
 	return *this;
