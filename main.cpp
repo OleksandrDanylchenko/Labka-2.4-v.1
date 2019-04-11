@@ -57,8 +57,8 @@ void putAboutStudent() {
 
 std::istream& setIStream(std::ifstream& f) {
 	int i;
-	if (std::cin.fail() || f.fail()) {
-		std::cin.clear();
+	if (std::cin.fail() || f.bad()) {
+		std::cin.clear(); 
 		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	}
 	while (true) {
@@ -78,7 +78,9 @@ std::istream& setIStream(std::ifstream& f) {
 				if (f.fail())
 					continue;
 				return (std::istream&)f;
-			}
+			} 
+		else
+			continue;
 	}
 }
 
@@ -106,5 +108,3 @@ std::ostream& setOStream(std::ofstream& f) {
 			return (std::ostream&)f;
 		}
 }
-
-// root folder D:/Studying/Programming/LABS/Labka 2-4 v.1/Labka 2-4 v.1/100000.txt
