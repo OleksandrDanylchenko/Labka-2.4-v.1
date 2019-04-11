@@ -2,6 +2,8 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#define NOMINMAX
+#include <Windows.h>
 #include "classes.h"
 
 void putAboutStudent();
@@ -10,6 +12,10 @@ std::istream& setIStream(std::ifstream& f);
 std::ostream& setOStream(std::ofstream& f);
 
 int main() {
+	system("mode con COLS=700");
+	ShowWindow(GetConsoleWindow(), SW_MAXIMIZE);
+	SendMessage(GetConsoleWindow(), WM_SYSKEYDOWN, VK_RETURN, 0x20000000);
+
 	putAboutStudent();
 	Polynom operandA, operandB;
 	
@@ -52,7 +58,7 @@ int main() {
 void putAboutStudent() {
 	std::cout << "Laboratory work 2 - 4 Linked Lists" << std::endl;
 	std::cout << "Group: K-14 Danilchenko Alexander" << std::endl;
-	std::cout << "VAR: 70" << std::endl;
+	std::cout << "\t     VAR: 70" << std::endl;
 }
 
 std::istream& setIStream(std::ifstream& f) {
