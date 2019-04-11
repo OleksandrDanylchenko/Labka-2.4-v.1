@@ -17,7 +17,7 @@ private:
 
 size_t randomGenerator(size_t min, size_t max);
 
-std::string getFilePath();
+std::string getFilePath(const char& checkChar);
 
 int main() {
 	system("mode con COLS=700");
@@ -28,8 +28,12 @@ int main() {
 	long long num;
 	std::cin >> num;
 
+	char checkChar = ' ';
+	std::cout << "What type of coefficients do you want? Double or Int? (D or I): ";
+	std::cin >> checkChar;
+
 	std::ofstream outFile;
-	std::string outFilePath = getFilePath();	
+	std::string outFilePath = getFilePath(checkChar);	
 	outFile.open(outFilePath, std::fstream::out);
 	if (outFile.fail()) {
 		std::cerr << "Error Opening File" << std::endl;
@@ -37,41 +41,35 @@ int main() {
 		return -1;
 	}
 	
-	while (true) {
-		char checkChar = ' ';
-		std::cout << "What type of coefficients do you want? Double or Int? (D or I): ";
-		std::cin >> checkChar;
-
-		if (checkChar == 'D' or checkChar == 'd') {
-			// create the random number generator:
-			Rand_double rd{ 0, 99.5 };
-			for (long long i = 0; i < num; ++i) {
-				outFile << std::fixed << std::setprecision(1) << rd() << ' ' << randomGenerator(0, 99);
-				if ((i + 1) < num)
-					outFile << std::endl;
-			}
-			break;
-		} else if (checkChar == 'I' or checkChar == 'i') {
-			for (long long i = 0; i < num; ++i) {
-				outFile << randomGenerator(0, 99) << ' ' << randomGenerator(0, 99);
-				if ((i + 1) < num)
-					outFile << std::endl;
-			}
-			break;
-		} else continue;
-	}
+	if (checkChar == 'D' or checkChar == 'd') {
+		// create the random number generator:
+		Rand_double rd{ 0, 99.5 };
+		for (long long i = 0; i < num; ++i) {
+			outFile << std::fixed << std::setprecision(1) << rd() << ' ' << randomGenerator(0, 99);
+			if ((i + 1) < num)
+				outFile << std::endl;
+		}
+	} else
+		for (long long i = 0; i < num; ++i) {
+			outFile << randomGenerator(0, 99) << ' ' << randomGenerator(0, 99);
+			if ((i + 1) < num)
+				outFile << std::endl;
+		} 
 	system("pause");
 	return 0;
 }
 
-std::string getFilePath() {
+std::string getFilePath(const char& checkChar) {
 	std::string outputFilePathUser = "";
 	std::string outputFilePath = "";
 	std::cout << "Enter the path to the output file or desirable name: ";
 	std::cin.ignore();
 	getline(std::cin, outputFilePathUser);
 	if (outputFilePathUser.empty())
-		outputFilePath = "D:/Studying/Programming/LABS/Labka 2-4 v.1/Labka 2-4 v.1/in.txt";
+		if (checkChar == 'D' or checkChar == 'd')
+			outputFilePath = "D:/Studying/Programming/LABS/Labka 2-4 v.1/Labka 2-4 v.1/inD.txt";
+		else
+			outputFilePath = "D:/Studying/Programming/LABS/Labka 2-4 v.1/Labka 2-4 v.1/in.txt";
 	else if (outputFilePathUser[0] != 'C' && outputFilePathUser[0] != 'D') { //if user didn't provided full adress -> create a new file in the root folder
 		std::string outputFilePathDefault = "D:/Studying/Programming/LABS/Labka 2-4 v.1/Labka 2-4 v.1/";
 		outputFilePath += outputFilePathDefault + outputFilePathUser + ".txt";
