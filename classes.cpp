@@ -9,12 +9,10 @@ Polynom::Polynom(const Polynom& p) {
 	for (auto i = p.begin(); i != p.end(); ++i)
 		push(*i);
 }
-
-Polynom::Polynom(Polynom&& p) {
-	dispose();
-	if (this != &p)
-		for (auto i = p.begin(); i != p.end(); ++i)
-			push(*i);
+// TODO CONVERT transfer
+Polynom::Polynom(Polynom&& p) noexcept {
+	first = p.first;
+	p.first = nullptr;
 }
 
 Polynom& Polynom::operator=(const Polynom& p) {
@@ -23,11 +21,14 @@ Polynom& Polynom::operator=(const Polynom& p) {
 	return *this;
 }
 
-Polynom& Polynom::operator=(Polynom&& p) {
+Polynom& Polynom::operator=(Polynom&& p) noexcept {
 	dispose();
-	if (this != &p)
-		for (auto i = p.begin(); i != p.end(); ++i)
-			push(*i);
+	if (this != &p) {
+		//for (auto i = p.begin(); i != p.end(); ++i)
+		//	push(*i);
+		first = p.first;
+		p.first = nullptr;
+	}
 	return *this;
 }
 
@@ -190,26 +191,33 @@ void operator >>(std::istream& ifs, Polynom& p) {
 
 void operator <<(std::ostream& ofs, const Polynom& p) {
 	if (&ofs == &std::cout) {
-		ofs << std::endl;
+		short amountOfMonoms = 0;
 		for (auto i = p.begin(); i != p.end(); ++i) {
 			Monom& tempM = *i;
+			if (tempM.coef > 0 && amountOfMonoms != 0) //dont put '-' on the start of polynom
+				ofs << " + ";
+			else if (tempM.coef < 0)
+				ofs << " - ";
 			if (abs(tempM.coef - 0.) < eps) // coefficient equal to 0
 				continue;
 			else if (abs(tempM.coef - 1.) < eps && abs(tempM.pow - 0.) > eps) // coefficient equal to 1 and power is not equal to zero
-				ofs << "x^" << tempM.pow;
+				ofs << " x^" << tempM.pow;
 			else if (abs(tempM.pow - 0.) < eps) // power equal to zero
-				ofs << tempM.coef;
+				ofs << abs(tempM.coef);
 			else if (abs(tempM.pow - 1.) < eps) // power equa to one
-				ofs << tempM.coef << "*x";
+				ofs << abs(tempM.coef) << "*x";
 			else
-				ofs << tempM.coef << "*x^" << tempM.pow;
-			if (!(i.isNextEmpty()))
-				ofs << " + ";
+				ofs << abs(tempM.coef) << "*x^" << tempM.pow;
+			++amountOfMonoms;
 		}
+	ofs << std::endl;
 	} else {
 		for (auto i = p.begin(); i != p.end(); ++i) {
 			Monom& tempM = *i;
-			ofs << tempM.coef << ' ' << tempM.pow << std::endl;
+			if (abs(tempM.coef - 0.) < eps)
+				continue;
+			else
+				ofs << tempM.coef << ' ' << tempM.pow << std::endl;
 		}
 	}
 	close(ofs);
@@ -226,7 +234,7 @@ void close(std::ostream& s) {
 		((std::ofstream&)s).close();
 }
 
-Polynom::Iter::Iter(Polynom::LE* init) : current{init} {}
+Polynom::Iter::Iter(Polynom::LE* init) : current{ init } {}
 Monom& Polynom::Iter::operator*() {
 	if (current != nullptr)
 		return current->data;
@@ -247,13 +255,6 @@ Polynom::Iter& Polynom::Iter::operator++(int) {
 	else
 		throw std::out_of_range("Memory access violation due to i++ operator");
 	return *this;
-}
-
-bool Polynom::Iter::isNextEmpty() {
-	if (current->next == nullptr)
-		return true;
-	else
-		return false;
 }
 
 bool Polynom::Iter::operator==(const Iter& it) { return (current == it.current); }
