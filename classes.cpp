@@ -134,7 +134,7 @@ void Polynom::push(const Monom& m) {
 		while (seek->next != nullptr && seek->next->data.pow <= m.pow)
 			seek = seek->next; 
 		if (seek->data.pow < m.pow) { // insert in the end of list
-			LE* temp = new LE{ m.coef, m.pow, nullptr };
+			LE* temp = new LE{ m.coef, m.pow, seek->next };
 			seek->next = temp;
 		}
 		else if (seek->data.pow > m.pow) {
