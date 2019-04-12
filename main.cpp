@@ -63,7 +63,7 @@ void putAboutStudent() {
 
 std::istream& setIStream(std::ifstream& f) {
 	int i;
-	if (std::cin.fail() || f.bad()) {
+	if (std::cin.fail() or f.bad()) {
 		std::cin.clear(); 
 		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	}
@@ -93,7 +93,7 @@ std::istream& setIStream(std::ifstream& f) {
 std::ostream& setOStream(std::ofstream& f) {
 	int i;
 	std::cout << "\n... Enter for out: 1(screen) or 2(file): ";
-	if (std::cin.fail() || f.fail()) {
+	if (std::cin.fail() or f.bad()) {
 		std::cin.clear();
 		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	}
