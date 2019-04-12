@@ -145,6 +145,7 @@ void Polynom::push(const Monom& m) {
 			seek->data.coef += m.coef;
 	}
 }
+
 bool Polynom::pop(Monom& m) {
 	if (first == nullptr)
 		return false;
@@ -155,6 +156,7 @@ bool Polynom::pop(Monom& m) {
 	delete tempDel;
 	return true;
 }
+
 void Polynom::dispose() {
 	Monom temp;
 	while (pop(temp));
@@ -228,18 +230,21 @@ void close(std::istream& s) {
 	} else
 		((std::ifstream&)s).close();
 }
+
 void close(std::ostream& s) {
 	if (&s != &std::cout)
 		((std::ofstream&)s).close();
 }
 
 Polynom::Iter::Iter(Polynom::LE* init) : current{ init } {}
+
 Monom& Polynom::Iter::operator*() {
 	if (current != nullptr)
 		return current->data;
 	else
 		throw std::out_of_range("Memory access violation due to * operator");
 }
+
 Polynom::Iter& Polynom::Iter::operator++() {
 	if (current != nullptr)
 		current = current->next;
@@ -247,6 +252,7 @@ Polynom::Iter& Polynom::Iter::operator++() {
 		throw std::out_of_range("Memory access violation due to ++i operator");
 	return *this;
 }
+
 Polynom::Iter& Polynom::Iter::operator++(int) {
 	Iter temp = *this;
 	if (current != nullptr)
