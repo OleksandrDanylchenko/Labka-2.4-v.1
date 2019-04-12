@@ -104,9 +104,9 @@ Polynom& Polynom::operator+=(const Polynom& p) {
 	auto iA = begin();
 	auto iB = p.begin();
 	while (true) {
-		if (iA != nullptr and iB == nullptr) {
+		if (iA != nullptr and iB == nullptr) 
 			break;
-		} else if (iA == nullptr and iB != nullptr) {
+		else if (iA == nullptr and iB != nullptr) {
 			Monom& currB = *iB;
 			push(currB); ++iB;
 		} else if (iA != nullptr and iB != nullptr) {
