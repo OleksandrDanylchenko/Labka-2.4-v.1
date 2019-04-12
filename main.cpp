@@ -62,21 +62,21 @@ void putAboutStudent() {
 }
 
 std::istream& setIStream(std::ifstream& f) {
-	short i;
 	if (std::cin.fail() or f.bad()) {
 		std::cin.clear(); 
 		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	}
 	while (true) {
+		short i;
 		std::cout << "\n... Enter 1(kbd) or 2(file): ";
 		std::cin >> i;
 		if (i == 1)
 			return std::cin;
-		else if (i == 2)
+		else if (i == 2) {
+			std::cin.get(); // pass Enter from previous input
 			while (true) {
 				std::cout << "\n... Enter input filepath: ";
 				std::string fN;
-				std::cin.get(); // pass Enter from previous input
 				getline(std::cin, fN);
 				if (fN.length() == 0)
 					fN = "in.txt";
@@ -84,33 +84,39 @@ std::istream& setIStream(std::ifstream& f) {
 				if (f.fail())
 					continue;
 				return (std::istream&)f;
-			} 
-		else
+			}
+		} else
 			continue;
 	}
 }
 
 std::ostream& setOStream(std::ofstream& f) {
-	short i;
-	std::cout << "\n... Enter for out: 1(screen) or 2(file): ";
 	if (std::cin.fail() or f.bad()) {
 		std::cin.clear();
 		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	}
-	std::cin >> i;
-	if (i == 1)
-		return std::cout;
-	else
-		while (true) {
-			std::cout << "\n... Enter output filepath: ";
-			std::string fN;
+	while (true) {
+		short i;
+		std::cout << "\n... Enter for out: 1(screen) or 2(file): ";
+		std::cin >> i;
+		if (i == 1)
+			return std::cout;
+		else if (i == 2) {
 			std::cin.get(); // pass Enter from previous input
-			getline(std::cin, fN);
-			if (fN.length() == 0)
-				fN = "out.txt";
-			f.open(fN);
-			if (f.fail())
-				continue;
-			return (std::ostream&)f;
-		}
+			while (true) {
+				std::cout << "\n... Enter output filepath: ";
+				std::string fN;
+				getline(std::cin, fN);
+				if (fN.length() == 0)
+					fN = "out.txt";
+				f.open(fN);
+				if (f.fail())
+					continue;
+				return (std::ostream&)f;
+			}
+		} else
+			continue;
+	}
 }
+
+// root folder D:/Studying/Programming/LABS/Labka 2-4 v.1/Labka 2-4 v.1/
