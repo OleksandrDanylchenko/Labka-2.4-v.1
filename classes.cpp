@@ -37,13 +37,13 @@ Polynom Polynom::operator+(const Polynom& p) const {
 	auto iA = begin();
 	auto iB = p.begin();
 	while (true) {
-		if (iA != nullptr && iB == nullptr) {
+		if (iA != nullptr and iB == nullptr) {
 			Monom& currA = *iA;
 			resultP.push(currA); ++iA;
-		} else if (iA == nullptr && iB != nullptr) {
+		} else if (iA == nullptr and iB != nullptr) {
 			Monom& currB = *iB;
 			resultP.push(currB); ++iB;
-		} else if (iA != nullptr && iB != nullptr) {
+		} else if (iA != nullptr and iB != nullptr) {
 			Monom& currA = *iA;
 			Monom& currB = *iB;
 			if (abs(currA.pow - currB.pow) < eps) { // A and B operands have the same power
@@ -71,13 +71,13 @@ Polynom Polynom::operator-(const Polynom& p) const {
 	auto iA = begin();
 	auto iB = p.begin();
 	while (true) {
-		if (iA != nullptr && iB == nullptr) {
+		if (iA != nullptr and iB == nullptr) {
 			Monom& currA = *iA;
 			resultP.push(currA); ++iA;
-		} else if (iA == nullptr && iB != nullptr) {
+		} else if (iA == nullptr and iB != nullptr) {
 			Monom& currB = *iB;
 			resultP.push(currB); ++iB;
-		} else if (iA != nullptr && iB != nullptr) {
+		} else if (iA != nullptr and iB != nullptr) {
 			Monom& currA = *iA;
 			Monom& currB = *iB;
 			if (abs(currA.pow - currB.pow) < eps) { // A and B operands have the same power
@@ -104,12 +104,12 @@ Polynom& Polynom::operator+=(const Polynom& p) {
 	auto iA = begin();
 	auto iB = p.begin();
 	while (true) {
-		if (iA != nullptr && iB == nullptr) {
+		if (iA != nullptr and iB == nullptr) {
 			break;
-		} else if (iA == nullptr && iB != nullptr) {
+		} else if (iA == nullptr and iB != nullptr) {
 			Monom& currB = *iB;
 			push(currB); ++iB;
-		} else if (iA != nullptr && iB != nullptr) {
+		} else if (iA != nullptr and iB != nullptr) {
 			Monom& currA = *iA;
 			Monom& currB = *iB;
 			if (abs(currA.pow - currB.pow) < eps) { // A and B operands have the same power
@@ -126,12 +126,12 @@ Polynom& Polynom::operator+=(const Polynom& p) {
 Polynom::~Polynom() { dispose(); }
 
 void Polynom::push(const Monom& m) {
-	if (first == nullptr || first->data.pow > m.pow) {
+	if (first == nullptr or first->data.pow > m.pow) {
 		LE* temp = new LE{ m.coef, m.pow, first};
 		first = temp;
 	} else {
 		LE* seek = first;
-		while (seek->next != nullptr && seek->next->data.pow <= m.pow)
+		while (seek->next != nullptr and seek->next->data.pow <= m.pow)
 			seek = seek->next; 
 		if (seek->data.pow < m.pow) { // insert in the end of list
 			LE* temp = new LE{ m.coef, m.pow, seek->next };
@@ -193,14 +193,14 @@ void operator <<(std::ostream& ofs, const Polynom& p) {
 		short amountOfMonoms = 0;
 		for (auto i = p.begin(); i != p.end(); ++i) {
 			Monom& tempM = *i;
-			if (tempM.coef > 0 && amountOfMonoms != 0) //dont put '-' on the start of polynom
+			if (tempM.coef > 0 and amountOfMonoms != 0) //dont put '-' on the start of polynom
 				ofs << " + ";
 			else if (tempM.coef < 0)
 				ofs << " - ";
 			if (abs(tempM.coef - 0.) < eps) // coefficient equal to 0
 				continue;
-			else if (abs(tempM.coef - 1.) < eps && abs(tempM.pow - 0.) > eps) // coefficient equal to 1 and power is not equal to zero
-				ofs << " x^" << tempM.pow;
+			else if (abs(tempM.coef - 1.) < eps and abs(tempM.pow - 0.) > eps) // coefficient equal to 1 and power is not equal to zero
+				ofs << "x^" << tempM.pow;
 			else if (abs(tempM.pow - 0.) < eps) // power equal to zero
 				ofs << abs(tempM.coef);
 			else if (abs(tempM.pow - 1.) < eps) // power equa to one
