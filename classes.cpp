@@ -104,7 +104,7 @@ Polynom& Polynom::operator+=(const Polynom& p) {
 	auto iA = begin();
 	auto iB = p.begin();
 	while (true) {
-		if (iA != nullptr and iB == nullptr) 
+		if (iA != nullptr and iB == nullptr)
 			break;
 		else if (iA == nullptr and iB != nullptr) {
 			Monom& currB = *iB;
@@ -127,21 +127,19 @@ Polynom::~Polynom() { dispose(); }
 
 void Polynom::push(const Monom& m) {
 	if (first == nullptr or first->data.pow > m.pow) {
-		LE* temp = new LE{ m.coef, m.pow, first};
+		LE* temp = new LE{ m.coef, m.pow, first };
 		first = temp;
 	} else {
 		LE* seek = first;
 		while (seek->next != nullptr and seek->next->data.pow <= m.pow)
-			seek = seek->next; 
-		if (seek->data.pow < m.pow) { // insert in the end of list
+			seek = seek->next;
+		if (seek->data.pow < m.pow) { 
 			LE* temp = new LE{ m.coef, m.pow, seek->next };
 			seek->next = temp;
-		}
-		else if (seek->data.pow > m.pow) {
+		} else if (seek->data.pow > m.pow) {
 			LE* temp = new LE{ m.coef, m.pow, seek };
 			seek = temp;
-		}
-		else if (seek->data.pow == m.pow)
+		} else if (seek->data.pow == m.pow)
 			seek->data.coef += m.coef;
 	}
 }
@@ -195,7 +193,7 @@ void operator <<(std::ostream& ofs, const Polynom& p) {
 		short amountOfMonoms = 0;
 		for (auto i = p.begin(); i != p.end(); ++i) {
 			Monom& tempM = *i;
-			if (tempM.coef > 0 and amountOfMonoms != 0) //dont put '-' on the start of polynom
+			if (tempM.coef > 0 and amountOfMonoms != 0) //dont put '+' on the start of polynom
 				ofs << " + ";
 			else if (tempM.coef < 0)
 				ofs << " - ";
@@ -211,7 +209,7 @@ void operator <<(std::ostream& ofs, const Polynom& p) {
 				ofs << abs(tempM.coef) << "*x^" << tempM.pow;
 			++amountOfMonoms;
 		}
-	ofs << std::endl;
+		ofs << std::endl;
 	} else {
 		for (auto i = p.begin(); i != p.end(); ++i) {
 			Monom& tempM = *i;
