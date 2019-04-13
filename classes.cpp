@@ -38,11 +38,9 @@ Polynom Polynom::operator+(const Polynom& p) const {
 	auto iB = p.begin();
 	while (true) {
 		if (iA != nullptr and iB == nullptr) {
-			Monom& currA = *iA;
-			resultP.push(currA); ++iA;
+			resultP.push(*iA); ++iA;
 		} else if (iA == nullptr and iB != nullptr) {
-			Monom& currB = *iB;
-			resultP.push(currB); ++iB;
+			resultP.push(*iB); ++iB;
 		} else if (iA != nullptr and iB != nullptr) {
 			Monom& currA = *iA;
 			Monom& currB = *iB;
@@ -72,11 +70,9 @@ Polynom Polynom::operator-(const Polynom& p) const {
 	auto iB = p.begin();
 	while (true) {
 		if (iA != nullptr and iB == nullptr) {
-			Monom& currA = *iA;
-			resultP.push(currA); ++iA;
+			resultP.push(*iA); ++iA;
 		} else if (iA == nullptr and iB != nullptr) {
-			Monom& currB = *iB;
-			resultP.push(currB); ++iB;
+			resultP.push(*iB); ++iB;
 		} else if (iA != nullptr and iB != nullptr) {
 			Monom& currA = *iA;
 			Monom& currB = *iB;
@@ -107,8 +103,7 @@ Polynom& Polynom::operator+=(const Polynom& p) {
 		if (iA != nullptr and iB == nullptr)
 			break;
 		else if (iA == nullptr and iB != nullptr) {
-			Monom& currB = *iB;
-			push(currB); ++iB;
+			push(*iB); ++iB;
 		} else if (iA != nullptr and iB != nullptr) {
 			Monom& currA = *iA;
 			Monom& currB = *iB;
