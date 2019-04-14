@@ -13,6 +13,8 @@ private:
 		LE* next;
 	};
 	LE* first{ nullptr };
+	
+	void dispose();
 public:
 	Polynom() = default;
 	Polynom(const Polynom&);
@@ -26,7 +28,6 @@ public:
 
 	void push(const Monom&);
 	bool pop(Monom&);
-	void dispose();
 
 	class Iter {
 	public:
