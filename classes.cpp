@@ -208,9 +208,9 @@ void operator <<(std::ostream& ofs, const Polynom& p) {
 	} else {
 		for (auto i = p.begin(); i != p.end(); ++i) {
 			Monom& tempM = *i;
-			if (abs(tempM.coef - 0.) < eps)
-				continue;
-			else
+			if (abs(tempM.coef - 0.) > eps)
+				
+			
 				ofs << tempM.coef << ' ' << tempM.pow << std::endl;
 		}
 	}
