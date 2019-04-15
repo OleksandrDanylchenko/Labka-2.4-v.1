@@ -32,7 +32,7 @@ Polynom& Polynom::operator=(Polynom&& p) noexcept {
 }
 
 Polynom Polynom::operator+(const Polynom& p) const {
-	double coefA = 0, coefB = 0, resultCoef = 0;
+	double resultCoef = 0;
 	Polynom resultP;
 	auto iA = begin();
 	auto iB = p.begin();
@@ -45,9 +45,7 @@ Polynom Polynom::operator+(const Polynom& p) const {
 			Monom& currA = *iA;
 			Monom& currB = *iB;
 			if (abs(currA.pow - currB.pow) < eps) { // A and B operands have the same power
-				coefA = currA.coef;
-				coefB = currB.coef;
-				resultCoef = coefA + coefB;
+				resultCoef = currA.coef + currB.coef;
 				Monom resultM{ resultCoef, currA.pow };
 				resultP.push(resultM);
 				++iA;
@@ -64,7 +62,7 @@ Polynom Polynom::operator+(const Polynom& p) const {
 }
 
 Polynom Polynom::operator-(const Polynom& p) const {
-	double coefA = 0, coefB = 0, resultCoef = 0;
+	double resultCoef = 0;
 	Polynom resultP;
 	auto iA = begin();
 	auto iB = p.begin();
@@ -77,13 +75,10 @@ Polynom Polynom::operator-(const Polynom& p) const {
 			Monom& currA = *iA;
 			Monom& currB = *iB;
 			if (abs(currA.pow - currB.pow) < eps) { // A and B operands have the same power
-				coefA = currA.coef;
-				coefB = currB.coef;
-				resultCoef = coefA - coefB;
+				resultCoef = currA.coef - currB.coef;
 				Monom resultM{ resultCoef, currA.pow };
 				resultP.push(resultM);
-				++iA;
-				++iB;
+				++iA; ++iB;
 			} else if (currA.pow < currB.pow) {
 				resultP.push(currA); ++iA;
 			} else {
@@ -96,7 +91,6 @@ Polynom Polynom::operator-(const Polynom& p) const {
 }
 
 Polynom& Polynom::operator+=(const Polynom& p) {
-	double coefA = 0, coefB = 0, resultCoef = 0;
 	auto iA = begin();
 	auto iB = p.begin();
 	while (true) {
@@ -208,9 +202,9 @@ void operator <<(std::ostream& ofs, const Polynom& p) {
 	} else {
 		for (auto i = p.begin(); i != p.end(); ++i) {
 			Monom& tempM = *i;
-			if (abs(tempM.coef - 0.) > eps)
-				
-			
+			if (abs(tempM.coef - 0.) < eps)
+				continue;
+			else
 				ofs << tempM.coef << ' ' << tempM.pow << std::endl;
 		}
 	}
