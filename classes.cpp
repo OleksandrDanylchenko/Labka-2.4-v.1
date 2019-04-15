@@ -48,8 +48,7 @@ Polynom Polynom::operator+(const Polynom& p) const {
 				resultCoef = currA.coef + currB.coef;
 				Monom resultM{ resultCoef, currA.pow };
 				resultP.push(resultM);
-				++iA;
-				++iB;
+				++iA; ++iB;
 			} else if (currA.pow < currB.pow) {
 				resultP.push(currA); ++iA;
 			} else {
@@ -202,7 +201,7 @@ void operator <<(std::ostream& ofs, const Polynom& p) {
 	} else {
 		for (auto i = p.begin(); i != p.end(); ++i) {
 			Monom& tempM = *i;
-			if (abs(tempM.coef - 0.) > eps)
+			if (abs(tempM.coef - 0.) > eps) // coefficient is not equal to zero
 				ofs << tempM.coef << ' ' << tempM.pow << std::endl;
 		}
 	}
