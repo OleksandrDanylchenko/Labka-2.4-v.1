@@ -128,7 +128,7 @@ void Polynom::push(const Monom& m) {
 		} else if (seek->data.pow > m.pow) {
 			LE* temp = new LE{ m.coef, m.pow, seek };
 			seek = temp;
-		} else if (seek->data.pow == m.pow)
+		} else // seek->data.pow == m.pow
 			seek->data.coef += m.coef;
 	}
 }
