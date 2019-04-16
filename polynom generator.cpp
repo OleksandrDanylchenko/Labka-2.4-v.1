@@ -40,7 +40,7 @@ int main() {
 		system("pause");
 		return -1;
 	}
-	
+	std::cout << "Processing..." << std::endl;
 	if (checkChar == 'D' or checkChar == 'd') {
 		// create the random number generator:
 		Rand_double rd{ 0, 99.5 };
@@ -51,7 +51,7 @@ int main() {
 		}
 	} else
 		for (long long i = 0; i < num; ++i) {
-			outFile << randomGenerator(0, 99) << ' ' << randomGenerator(0, 99);
+			outFile << randomGenerator(0, 20) << ' ' << randomGenerator(0, 99);
 			if ((i + 1) < num)
 				outFile << std::endl;
 		} 
@@ -70,10 +70,11 @@ std::string getFilePath(const char& checkChar) {
 			outputFilePath = "D:/Studying/Programming/LABS/Labka 2-4 v.1/Labka 2-4 v.1/inD.txt";
 		else
 			outputFilePath = "D:/Studying/Programming/LABS/Labka 2-4 v.1/Labka 2-4 v.1/in.txt";
-	else if (outputFilePathUser[0] != 'C' && outputFilePathUser[0] != 'D') { //if user didn't provided full adress -> create a new file in the root folder
+	else if (outputFilePathUser.find('\\') == std::string::npos and outputFilePathUser.find('\/') == std::string::npos) { //if user didn't provided full adress -> create a new file in the root folder
 		std::string outputFilePathDefault = "D:/Studying/Programming/LABS/Labka 2-4 v.1/Labka 2-4 v.1/";
 		outputFilePath += outputFilePathDefault + outputFilePathUser + ".txt";
-	}
+	} else
+		outputFilePath = outputFilePathUser;
 	return outputFilePath;
 }
 
