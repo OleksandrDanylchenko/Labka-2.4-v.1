@@ -148,7 +148,7 @@ void Polynom::dispose() {
 	while (pop(temp));
 }
 
-void operator >>(std::istream& ifs, Polynom& p) {
+std::istream& operator >>(std::istream& ifs, Polynom& p) {
 	short checkVal = -1;
 	double tempCoef, tempPow;
 	if (&ifs == &std::cin) {
@@ -174,9 +174,10 @@ void operator >>(std::istream& ifs, Polynom& p) {
 			p.push(tempMonom);
 		}
 	close(ifs);
+	return ifs;
 }
 
-void operator <<(std::ostream& ofs, const Polynom& p) {
+std::ostream& operator <<(std::ostream& ofs, const Polynom& p) {
 	if (&ofs == &std::cout) {
 		short amountOfMonoms = 0;
 		for (auto i = p.begin(); i != p.end(); ++i) {
@@ -206,7 +207,9 @@ void operator <<(std::ostream& ofs, const Polynom& p) {
 		}
 	}
 	close(ofs);
+	return ofs;
 }
+
 void close(std::istream& s) {
 	if (&s == &std::cin) {
 		s.sync();
