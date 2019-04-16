@@ -17,10 +17,10 @@ int main() {
 	SendMessage(GetConsoleWindow(), WM_SYSKEYDOWN, VK_RETURN, 0x20000000);
 
 	putAboutStudent();
-	Polynom operandA, operandB;
 	
-	// INPUT
+	Polynom operandA, operandB;
 	try {
+		// INPUT
 		std::ifstream f;
 		std::istream& s_inA = setIStream(f);
 		s_inA >> operandA;
@@ -39,12 +39,6 @@ int main() {
 		s_outM << resultMinus;
 		std::ostream& s_outPE = setOStream(g);
 		s_outPE << operandA;
-
-		// CLEANING UP MEMORY
-		operandA.~Polynom();
-		operandB.~Polynom();
-		resultPlus.~Polynom();
-		resultMinus.~Polynom();
 	} catch (std::exception & ex) {
 		std::cerr << "\n\t" << ex.what() << std::endl;
 		system("pause");
