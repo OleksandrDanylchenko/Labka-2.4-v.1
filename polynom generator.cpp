@@ -70,7 +70,7 @@ std::string getFilePath(const char& checkChar) {
 			outputFilePath = "D:/Studying/Programming/LABS/Labka 2-4 v.1/Labka 2-4 v.1/inD.txt";
 		else
 			outputFilePath = "D:/Studying/Programming/LABS/Labka 2-4 v.1/Labka 2-4 v.1/in.txt";
-	else if (outputFilePathUser.find('\\') == std::string::npos and outputFilePathUser.find('\/') == std::string::npos) { //if user didn't provided full adress -> create a new file in the root folder
+	else if (outputFilePathUser.find('\\') == std::string::npos and outputFilePathUser.find('/') == std::string::npos) { //if user didn't provided full adress -> create a new file in the root folder
 		std::string outputFilePathDefault = "D:/Studying/Programming/LABS/Labka 2-4 v.1/Labka 2-4 v.1/";
 		outputFilePath += outputFilePathDefault + outputFilePathUser + ".txt";
 	} else
