@@ -121,7 +121,7 @@ void Polynom::push(const Monom& m) {
 		LE* seek = first;
 		while (seek->next != nullptr and seek->next->data.pow <= m.pow)
 			seek = seek->next;
-		if (seek->data.pow < m.pow) { 
+		if (seek->data.pow < m.pow) {
 			LE* temp = new LE{ m.coef, m.pow, seek->next };
 			seek->next = temp;
 		} else if (seek->data.pow > m.pow) {
@@ -168,7 +168,7 @@ std::istream& operator >>(std::istream& ifs, Polynom& p) {
 		if (checkVal == -1)
 			throw std::logic_error("Keyboard input is empty!");
 	} else
-		while (!(ifs.eof())) {
+		while (ifs.peek() != std::ifstream::traits_type::eof()) {
 			ifs >> tempCoef >> tempPow;
 			Monom tempMonom{ tempCoef, tempPow };
 			p.push(tempMonom);
