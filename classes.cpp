@@ -149,7 +149,6 @@ void Polynom::dispose() {
 }
 
 std::istream& operator >>(std::istream& ifs, Polynom& p) {
-	short checkVal = -1;
 	double tempCoef, tempPow;
 	if (&ifs == &std::cin) {
 		while (true) {
@@ -163,10 +162,7 @@ std::istream& operator >>(std::istream& ifs, Polynom& p) {
 			}
 			Monom tempMonom{ tempCoef, tempPow };
 			p.push(tempMonom);
-			++checkVal;
 		}
-		if (checkVal == -1)
-			throw std::logic_error("Keyboard input is empty!");
 	} else
 		while (ifs.peek() != std::ifstream::traits_type::eof()) {
 			ifs >> tempCoef >> tempPow;
