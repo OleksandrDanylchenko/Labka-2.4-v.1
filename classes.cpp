@@ -246,7 +246,7 @@ Polynom::Iter& Polynom::Iter::operator++(int) {
 		current = current->next;
 	else
 		throw std::out_of_range("Memory access violation due to i++ operator");
-	return *this;
+	return temp;
 }
 
 bool Polynom::Iter::operator==(const Iter& it) { return (current == it.current); }
