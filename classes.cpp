@@ -114,7 +114,8 @@ Polynom& Polynom::operator+=(const Polynom& p) {
 Polynom::~Polynom() { dispose(); }
 
 void Polynom::push(const Monom& m) {
-	if (first == nullptr or first->data.pow > m.pow) {
+	// add element with smaller power to the beginning
+	if (first == nullptr or first->data.pow > m.pow) { // add prev
 		LE* temp = new LE{ m.coef, m.pow, first };
 		first = temp;
 	} else {
@@ -122,11 +123,8 @@ void Polynom::push(const Monom& m) {
 		while (seek->next != nullptr and seek->next->data.pow <= m.pow)
 			seek = seek->next;
 		if (seek->data.pow < m.pow) {
-			LE* temp = new LE{ m.coef, m.pow, seek->next };
+			LE* temp = new LE{ m.coef, m.pow, seek->next }; // add after
 			seek->next = temp;
-		} else if (seek->data.pow > m.pow) {
-			LE* temp = new LE{ m.coef, m.pow, seek };
-			seek = temp;
 		} else // seek->data.pow == m.pow
 			seek->data.coef += m.coef;
 	}
@@ -195,13 +193,12 @@ std::ostream& operator <<(std::ostream& ofs, const Polynom& p) {
 			++amountOfMonoms;
 		}
 		ofs << std::endl;
-	} else {
+	} else
 		for (auto i = p.begin(); i != p.end(); ++i) {
 			Monom& tempM = *i;
 			if (abs(tempM.coef - 0.) > eps) // coefficient is not equal to zero
 				ofs << tempM.coef << ' ' << tempM.pow << std::endl;
 		}
-	}
 	close(ofs);
 	return ofs;
 }
