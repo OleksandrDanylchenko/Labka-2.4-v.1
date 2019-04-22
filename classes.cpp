@@ -51,7 +51,7 @@ Polynom Polynom::operator+(const Polynom& p) const {
 				++iA; ++iB;
 			} else if (currA.pow < currB.pow) {
 				resultP.push(currA); ++iA;
-			} else {
+			} else { // currA.pow > currB.pow
 				resultP.push(currB); ++iB;
 			}
 		} else
@@ -80,7 +80,7 @@ Polynom Polynom::operator-(const Polynom& p) const {
 				++iA; ++iB;
 			} else if (currA.pow < currB.pow) {
 				resultP.push(currA); ++iA;
-			} else {
+			} else { // currA.pow > currB.pow
 				resultP.push(currB); ++iB;
 			}
 		} else
