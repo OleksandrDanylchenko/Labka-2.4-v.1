@@ -17,7 +17,7 @@ int main() {
 	SendMessage(GetConsoleWindow(), WM_SYSKEYDOWN, VK_RETURN, 0x20000000);
 
 	putAboutStudent();
-	
+
 	Polynom operandA, operandB;
 	try {
 		// INPUT
@@ -39,7 +39,7 @@ int main() {
 		s_outM << resultMinus;
 		std::ostream& s_outPE = setOStream(g);
 		s_outPE << operandA;
-	} catch (std::exception & ex) {
+	} catch (std::exception& ex) {
 		std::cerr << "\n\t" << ex.what() << std::endl;
 		system("pause");
 		return -1;
@@ -56,8 +56,8 @@ void putAboutStudent() {
 }
 
 std::istream& setIStream(std::ifstream& f) {
-	if (std::cin.fail() or f.bad()) {
-		std::cin.clear(); 
+	if (std::cin.fail() or f.fail()) {
+		std::cin.clear();
 		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	}
 	while (true) {
@@ -85,7 +85,7 @@ std::istream& setIStream(std::ifstream& f) {
 }
 
 std::ostream& setOStream(std::ofstream& f) {
-	if (std::cin.fail() or f.bad()) {
+	if (std::cin.fail() or f.fail()) {
 		std::cin.clear();
 		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	}
