@@ -16,9 +16,11 @@ Polynom::Polynom(Polynom&& p) noexcept {
 }
 
 Polynom& Polynom::operator=(const Polynom& p) {
-	dispose();
-	for (auto i = p.begin(); i != p.end(); ++i)
-		push(*i);
+	if (this != &p) {
+		dispose();
+		for (auto i = p.begin(); i != p.end(); ++i)
+			push(*i);
+	}
 	return *this;
 }
 
@@ -51,7 +53,7 @@ Polynom Polynom::operator+(const Polynom& p) const {
 				++iA; ++iB;
 			} else if (currA.pow < currB.pow) {
 				resultP.push(currA); ++iA;
-			} else { // currA.pow > currB.pow
+			} else {
 				resultP.push(currB); ++iB;
 			}
 		} else
@@ -80,7 +82,7 @@ Polynom Polynom::operator-(const Polynom& p) const {
 				++iA; ++iB;
 			} else if (currA.pow < currB.pow) {
 				resultP.push(currA); ++iA;
-			} else { // currA.pow > currB.pow
+			} else {
 				resultP.push(currB); ++iB;
 			}
 		} else
@@ -180,6 +182,7 @@ std::ostream& operator <<(std::ostream& ofs, const Polynom& p) {
 				ofs << " + ";
 			else if (tempM.coef < 0)
 				ofs << " - ";
+
 			if (abs(tempM.coef - 0.) < eps) // coefficient equal to 0
 				continue;
 			else if (abs(tempM.coef - 1.) < eps and abs(tempM.pow - 0.) > eps) // coefficient equal to 1 and power is not equal to zero
