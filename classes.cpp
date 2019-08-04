@@ -26,6 +26,7 @@ Polynom& Polynom::operator=(const Polynom& p) {
 
 Polynom& Polynom::operator=(Polynom&& p) noexcept {
 	if (this != &p) {
+		dispose();
 		first = p.first;
 		p.first = nullptr;
 	}
